@@ -97,7 +97,11 @@ struct ListView: View {
 			.task {
 				guard files.isEmpty else { return }
 				do {
-					files = try await model.availableFiles()
+					async let files = try model.availableFiles()
+					async let status = try model.status()
+					let (fileResult, statusResult) = try await (files, status)
+					self.files = fileResult
+					self.status = statusResult
 				} catch {
 					lastErrorMessage = error.localizedDescription
 				}
