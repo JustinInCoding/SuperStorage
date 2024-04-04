@@ -105,6 +105,7 @@ class SuperStorageModel: ObservableObject {
     // Add code here, replacing placeholder return statement
 		var asyncDownloadIterator = result.downloadStream.makeAsyncIterator()
 		let accumulator = ByteAccumulator(name: name, size: size)
+		// ????????? How to calculator, why is that
 		while !stopDownloads,
 					!accumulator.checkCompleted() {
 			while !accumulator.isBatchCompleted,
@@ -112,6 +113,7 @@ class SuperStorageModel: ObservableObject {
 				accumulator.append(byte)
 			}
 			let progress = accumulator.progress
+			// Why ?????????????
 			Task.detached(priority: .medium) {
 				await self.updateDownload(name: name, progress: progress)
 			}
